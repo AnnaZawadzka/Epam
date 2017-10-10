@@ -1,0 +1,10 @@
+1. Location of project: https://github.com/AnnaZawadzka/Epam
+2. Please download project from following location
+3. Go to the folder with project
+4. Open cmd
+5. Put: mvn clean install
+
+Requirements: 
+1. Maven installed
+2. Google Chrome 
+
