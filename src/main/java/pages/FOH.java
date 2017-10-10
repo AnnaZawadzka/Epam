@@ -14,6 +14,8 @@ public class FOH {
 
 	private WebDriver driver;
 	private static final String HOME_PAGE_URL = "https://www.ryanair.com/gb/en/";
+	
+	private final String popupLogged = ".//*[@class='header-toaster__msg']"; 
 		
 	@FindBy(xpath = "//*[@id='myryanair-auth-login']")
 	private WebElement tabLogIn;
@@ -46,15 +48,18 @@ public class FOH {
 	private WebElement buttonLetsGo;
 	
 	public FOH(WebDriver driver) {
+		
 		this.driver = driver;
 		  PageFactory.initElements(new AjaxElementLocatorFactory(driver, 30), this);
 	}
 	
 	public void open () {
+		
 		driver.get(HOME_PAGE_URL);	
 	}
 	
 	public void pressTabLogIn () {
+		
 		this.tabLogIn.click();
 	}
 	
@@ -70,20 +75,22 @@ public class FOH {
 	public void chooseFlight (String outbound, String inbound, String outDate, String backDate) throws Throwable {
 		
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@class='header-toaster__msg']")));
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(".//*[@class='header-toaster__msg']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(popupLogged)));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(popupLogged)));
 		this.inputOutbound.click();
 		this.inputOutbound.sendKeys(outbound);
 		this.inputInbound.click();
 		this.inputInbound.sendKeys(inbound);
 		this.firstElement.click();
-		//Thread.sleep(9999); //refactoring
 		this.inputFlyOut.click();
 		this.inputFlyOut.sendKeys(outDate);
 		this.inputFlyBack.click();
 		this.inputFlyBack.sendKeys(backDate);
-		this.buttonLetsGo.click();
+		
 	}
 	
-	
+	public void goToFlightPicker() {
+		
+		this.buttonLetsGo.click();
+	}
 }
